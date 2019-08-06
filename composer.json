@@ -1,0 +1,14 @@
+{
+    "name": "mihailvysocin/monoapi",
+    "description": "monobank api",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mishavysochin",
+            "email": "mishavysochin@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
