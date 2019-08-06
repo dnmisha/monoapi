@@ -10,6 +10,9 @@ class Statement extends Request
 
     public $methodUrl = "/personal/statement/{account}/{from}/{to}";
 
+    /**
+     * @return string
+     */
     public function getRequestUrl()
     {
         $this->methodUrl = str_replace('{account}', $this->account, $this->methodUrl);

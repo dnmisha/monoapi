@@ -1,19 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mihailvysocin
- * Date: 8/6/19
- * Time: 1:42 PM
- */
 
 namespace dnmisha\monoapi\request;
 
-
+/**
+ * Class RequestHandler
+ * @package dnmisha\monoapi\request
+ */
 class RequestHandler
 {
     private $baseUrl;
     private $token;
 
+    /**
+     * RequestHandler constructor.
+     * @param $baseUrl
+     * @param $token
+     */
     public function __construct($baseUrl, $token)
     {
         $this->baseUrl = $baseUrl;
@@ -21,9 +23,12 @@ class RequestHandler
     }
 
     /**
-     * @param $className string
+     * @param $className
+     * @param string $params
+     * @return AbstractRequest
+     * @throws \ReflectionException
      */
-    public function get($className, $params = []){
+    public function get($className, $params = ''){
         $class = new \ReflectionClass($this);
         $className = $class->getNamespaceName().'\\'.$className;
         /**

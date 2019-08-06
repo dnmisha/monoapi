@@ -18,7 +18,7 @@ class Request
     private $token = null;
     private $params = [];
 
-    public function __construct($baseUrl, $token, $params = [])
+    public function __construct($baseUrl, $token, $params = '')
     {
         $this->baseUrl = $baseUrl;
         $this->token = $token;
