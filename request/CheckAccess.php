@@ -1,12 +1,19 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Amac
+ * Date: 20.07.2020
+ * Time: 20:33
+ */
 
 namespace dnmisha\monoapi\request;
 
+
 use Exception;
 
-class ClientInfo extends Request
+class CheckAccess extends Request
 {
-    public $methodUrl = '/personal/client-info';
+    public $methodUrl = '/personal/auth/request';
 
     public function __construct($baseUrl, $token, $params = '')
     {
@@ -30,4 +37,5 @@ class ClientInfo extends Request
             ];
         }
     }
+
 }
