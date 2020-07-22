@@ -18,7 +18,7 @@ class Request
     public $token = null;
     private $params = [];
 
-    public $headers = null;
+    public $headers = [];
 
     public function __construct($baseUrl, $token, $params = '')
     {
@@ -26,7 +26,9 @@ class Request
         $this->token = $token;
         $this->params = $params;
 
-        $this->headers = ["X-Token: {$this->token}"];
+        if (is_string($token)){
+            $this->headers = ["X-Token: {$this->token}"];
+        }
     }
 
     /**
