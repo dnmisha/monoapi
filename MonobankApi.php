@@ -34,8 +34,12 @@ class MonobankApi
     {
 
         if (is_array($token)) {
-            if (empty($token['serviceId']) || empty($token['pathToKeyFile']) || !file_exists($token['pathToKeyFile'])) {
-                throw new Exception('Not valid parameters [\'serviceId\'] or [\'pathToKeyFile\']', 400);
+            if (empty($token['serviceId'])) {
+                throw new Exception('[\'serviceId\'] cannot be empty', 400);
+            } elseif (empty($token['pathToKeyFile'])) {
+                throw new Exception('[\'pathToKeyFile\'] cannot be empty', 400);
+            } elseif (!file_exists($token['pathToKeyFile'])) {
+                throw new Exception("file does not exist in the path " . $token['pathToKeyFile'], 400);
             }
         }
 
