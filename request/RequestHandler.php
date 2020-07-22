@@ -2,6 +2,8 @@
 
 namespace dnmisha\monoapi\request;
 
+use ReflectionException;
+
 /**
  * Class RequestHandler
  * @package dnmisha\monoapi\request
@@ -26,11 +28,12 @@ class RequestHandler
      * @param $className
      * @param string $params
      * @return AbstractRequest
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    public function get($className, $params = ''){
+    public function get($className, $params = '')
+    {
         $class = new \ReflectionClass($this);
-        $className = $class->getNamespaceName().'\\'.$className;
+        $className = $class->getNamespaceName() . '\\' . $className;
         /**
          * @var $object AbstractRequest
          */

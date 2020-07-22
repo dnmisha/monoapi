@@ -15,16 +15,23 @@ class Request
     public $methodType = 'GET';
 
     private $baseUrl = '';
-    private $token = null;
+    public $token = null;
     private $params = [];
+
+    public $headers = null;
 
     public function __construct($baseUrl, $token, $params = '')
     {
         $this->baseUrl = $baseUrl;
         $this->token = $token;
         $this->params = $params;
+
+        $this->headers = ["X-Token: {$this->token}"];
     }
 
+    /**
+     * @return mixed
+     */
     public function sent()
     {
         $ch = curl_init($this->getRequestUrl());
@@ -35,18 +42,30 @@ class Request
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($this->params))
         );
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "X-Token: {$this->token}"
-        ));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         $data = curl_exec($ch);
 
-        $result = json_decode($data);
-
-        return $result;
+        return json_decode($data);
     }
 
+    /**
+     * @return string
+     */
     public function getRequestUrl()
     {
         return $this->baseUrl . $this->methodUrl;
+    }
+
+    /**
+     * @param $stringSign
+     * @return string
+     */
+    public function getSign($stringSign)
+    {
+        $keyFile = openssl_get_privatekey(file_get_contents($this->token["pathToKeyFile"]), "");
+        openssl_sign($stringSign, $newKeyString, $keyFile, OPENSSL_ALGO_SHA256);
+        openssl_free_key($keyFile);
+
+        return base64_encode($newKeyString);
     }
 }
